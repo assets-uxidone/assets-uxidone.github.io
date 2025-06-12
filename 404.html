@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Not Found | UXIDONE Corporation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --secondary: #ff2a72;
+            --accent: #f5d742;
+            --dark: #0a0a1a;
+            --darker: #000010;
+            --light: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(ellipse at center, var(--dark) 0%, var(--darker) 100%);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            position: relative;
+            width: 120px; /* Smaller logo size */
+            height: 120px;
+            margin-bottom: 1rem;
+        }
+
+        .error-logo {
+            width: 100%;
+            height: 100%;
+            background: url('https://assets-uxidone.github.io/assets/404_error_logo_no_text_black.png') center no-repeat;
+            background-size: contain;
+        }
+
+        .error-code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--secondary);
+            text-shadow: 0 0 15px rgba(255, 42, 114, 0.7);
+            margin-top: -1rem; /* Adjust spacing */
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin: 0.5rem 0;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        p {
+            max-width: 600px;
+            margin: 0.5rem 0;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .home-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: var(--darker);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 1rem;
+        }
+
+        .home-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 240, 255, 0.4);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .logo-container {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .error-code {
+                font-size: 2.5rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas class="particles" id="particles"></canvas>
+    
+    <div class="content-wrapper">
+        <div class="logo-container">
+            <div class="error-logo"></div>
+        </div>
+        
+        <div class="error-code">404</div>
+        
+        <h1>Asset Not Found</h1>
+        
+        <p>
+            The requested asset is no longer available at this location.
+            It may have been moved, renamed, or removed.
+        </p>
+        
+        <p>
+            Please verify the asset path or contact UXIDONE Corporation support.
+        </p>
+        
+        <a href="https://assets-uxidone.github.io" class="home-link">Return to Assets Repository</a>
+    </div>
+
+    <script>
+        // Simple particle effect for background
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particles = [];
+        const particleCount = Math.floor(window.innerWidth / 10);
+        
+        // Create particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 1,
+                speedX: Math.random() * 1 - 0.5,
+                speedY: Math.random() * 1 - 0.5,
+                color: `hsla(${Math.random() * 60 + 180}, 100%, 60%, ${Math.random() * 0.3 + 0.1})`
+            });
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw particles
+            particles.forEach(p => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+                
+                // Wrap around edges
+                if (p.x > canvas.width + 50) p.x = -50;
+                if (p.x < -50) p.x = canvas.width + 50;
+                if (p.y > canvas.height + 50) p.y = -50;
+                if (p.y < -50) p.y = canvas.height + 50;
+                
+                // Draw particle
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
