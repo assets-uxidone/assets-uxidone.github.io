@@ -1,0 +1,133 @@
+:root {
+  /* Core Palette */
+  --uxi-primary: #6366f1;
+  --uxi-secondary: #8b5cf6;
+  --uxi-bg: #050505;
+  --uxi-surface: #0f1115;
+  --uxi-surface-alt: #16191f;
+  
+  /* Text */
+  --uxi-text: #ffffff;
+  --uxi-text-muted: #888888;
+  --uxi-text-dim: #444444;
+  
+  /* Accents & Borders */
+  --uxi-border: rgba(255, 255, 255, 0.08);
+  --uxi-border-hover: rgba(99, 102, 241, 0.4);
+  --uxi-glow: rgba(99, 102, 241, 0.15);
+  
+  /* Motion */
+  --uxi-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --uxi-transition: 0.4s var(--uxi-ease);
+}
+
+/* Base Smoothing */
+html {
+  background-color: var(--uxi-bg);
+  color: var(--uxi-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Interactive Component: System Button */
+.uxi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem 2.5rem;
+  background: var(--uxi-text);
+  color: var(--uxi-bg);
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: transform 0.3s var(--uxi-ease), box-shadow 0.3s var(--uxi-ease);
+  border: 1px solid transparent;
+}
+
+.uxi-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.uxi-btn-outline {
+  background: transparent;
+  color: var(--uxi-text);
+  border: 1px solid var(--uxi-border);
+}
+
+.uxi-btn-outline:hover {
+  border-color: var(--uxi-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Component: Bento Card */
+.uxi-card {
+  background: var(--uxi-surface);
+  border: 1px solid var(--uxi-border);
+  border-radius: 24px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s var(--uxi-ease);
+}
+
+.uxi-card:hover {
+  background: var(--uxi-surface-alt);
+  border-color: var(--uxi-border-hover);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Component: Glass Navigation */
+.uxi-nav-glass {
+  background: rgba(5, 5, 5, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--uxi-border);
+}
+
+/* Typography Primitives */
+.uxi-title {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.uxi-gradient-text {
+  background: linear-gradient(to right, #ffffff, var(--uxi-text-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Utility: System Glow */
+.uxi-glow-box {
+  position: relative;
+}
+
+.uxi-glow-box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, var(--uxi-glow), transparent 70%);
+  filter: blur(40px);
+  opacity: 0;
+  transition: opacity 0.6s var(--uxi-ease);
+  pointer-events: none;
+}
+
+.uxi-glow-box:hover::after {
+  opacity: 1;
+}
+
+/* Animations: Reveal Engine */
+.uxi-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s var(--uxi-ease), transform 1s var(--uxi-ease);
+}
+
+.uxi-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
